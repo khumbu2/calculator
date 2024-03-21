@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #8bc6ec;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+
+        }
+
+        #container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            max-width: 300px;
+            margin: auto;
+            padding: 20px;
+            background-color: #073a47;
+            box-shadow: 0 0 10px rgba(255, 6, 6, 0.1);
+            border-radius: 8px;
+           
+            width: 350px;
+            border-radius: 10px;
+        }
+        
+
+        #display {
+            grid-column: span 4;
+            font-size: 24px;
+            text-align: right;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #333333;
+            color: #fff;
+            border-radius: 70%;
+            height: 65px;
+            width: 65px;
+        }
+
+        .key-zero {
+            grid-column: span 2;
+            width: 100%;
+            border-radius: 30px;
+        }
+
+        .key-operate {
+            background: #ff9501;
+        }
+
+        .key-others {
+           background: #a6a6a6;
+           color: #000000;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    
+   
+    <div id="display" class="calc-text">
+        <p name="user-input" id="user-input">0</p>
+    </div>
+    <button onclick="clearDisplay()" class="key-others">AC</button>
+    <button onclick="deleteLast()" class="key-others">DEL</button>
+    <button onclick="appendCharacter('%')" class="key-others">%</button>
+    <button onclick="appendCharacter('/')" class="key-operate">/</button>
+    <button onclick="appendCharacter('7')">7</button>
+    <button onclick="appendCharacter('8')">8</button>
+    <button onclick="appendCharacter('9')">9</button>
+    <button onclick="appendCharacter('*')" class="key-operate">*</button>
+    <button onclick="appendCharacter('4')">4</button>
+    <button onclick="appendCharacter('5')">5</button>
+    <button onclick="appendCharacter('6')">6</button>
+    <button onclick="appendCharacter('-')" class="key-operate">-</button>
+    <button onclick="appendCharacter('1')">1</button>
+    <button onclick="appendCharacter('2')">2</button>
+    <button onclick="appendCharacter('3')">3</button>
+    <button onclick="appendCharacter('+')" class="key-operate">+</button>
+    <button onclick="appendCharacter('0')" class="key-zero">0</button>
+    <button onclick="appendCharacter('.')">.</button>
+    <button onclick="calculateResult()">=</button>
+</div>
+
+<script>
+    const inputValue = document.getElementById("user-input");
+    let display = document.getElementById("display");
+    let currentInput = "";
+
+    function clearDisplay() {
+        currentInput = "";
+        updateDisplay();
+    }
+
+    function deleteLast() {
+        currentInput = currentInput.slice(0, -1);
+        updateDisplay();
+    }
+
+    function appendCharacter(character) {
+        currentInput += character;
+        updateDisplay();
+    }
+
+    function calculateResult() {
+        try {
+            currentInput = eval(currentInput).toString();
+            updateDisplay();
+        } catch (error) {
+            display.innerHTML = "Error";
+        }
+    }
+
+    function updateDisplay() {
+        display.innerHTML = currentInput;
+    }
+</script>
+
+</body>
+</html>
